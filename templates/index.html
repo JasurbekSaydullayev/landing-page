@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog-Z Bootstrap 5.0 HTML Template</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">
+</head>
+<body>
+<div id="loader-wrapper">
+    <div id="loader"></div>
+
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+
+</div>
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-film mr-2"></i>
+            Farrux Saidov
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link nav-link-1 active" aria-current="page" href="#">Photos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-4" href="{% url 'contact' %}">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container-fluid tm-container-content tm-mt-60">
+    <div class="row mb-4 justify-content-center align-items-center">
+        <h2 class="col-6 tm-text-primary d-flex justify-content-center align-items-center">
+            Yangiliklar
+        </h2>
+    </div>
+    <div class="row tm-mb-90 tm-gallery justify-content-center align-items-center">
+        {% for announcement in announcements %}
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+            <figure class="effect-ming tm-video-item">
+                <style>
+                    .tm-video-item img {
+                        width: 1500px;
+                        height: 400px;
+                        object-fit: cover;
+                    }
+                </style>
+                <img src="{{ announcement.image.url }}" alt="Image" class="img-fluid">
+            </figure>
+
+
+            <div class="d-flex flex-column align-items-center tm-text-black">
+                <span class="d-flex align-items-center justify-content-center">
+                    <h3>{{ announcement.title }}</h3>
+                </span>
+                <span class="tm-text-gray-black text-center">{{ announcement.date | date:"d.m.Y" }}</span>
+                <span class="tm-text-gray-black text-center">{{ announcement.description }}</span>
+            </div>
+            <div class="d-flex justify-content-center align-items-center tm-text-black">
+                {% if announcement.file %}
+                <a href="{{ announcement.file.url }}" class="btn btn-primary" target="_blank">Faylni yuklash</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="row tm-mb-90">
+        <div class="col-12 d-flex justify-content-between align-items-center tm-paging-col">
+            {% if announcements.has_previous %}
+            <a href="?page={{ announcements.previous_page_number }}"
+               class="btn btn-primary tm-btn-prev mb-2">Previous</a>
+            {% else %}
+            <a href="#" class="btn btn-primary tm-btn-prev mb-2 disabled">Previous</a>
+            {% endif %}
+            <div class="tm-paging d-flex">
+                {% for i in announcements.paginator.page_range %}
+                {% if announcements.number == i %}
+                <a href="?page={{ i }}" class="active tm-paging-link">{{ i }}</a>
+                {% else %}
+                <a href="?page={{ i }}" class="tm-paging-link">{{ i }}</a>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% if announcements.has_next %}
+            <a href="?page={{ announcements.next_page_number }}" class="btn btn-primary tm-btn-next">Next Page</a>
+            {% else %}
+            <a href="#" class="btn btn-primary tm-btn-next">Next Page</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+<footer style="background-color: #009999; color: #ffffff; padding: 30px 0;">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+        <div style="text-align: center; flex: 1;">
+            <img src="media/img/tuit_logo.png" alt="TUIT logosi" style="max-width: 100px; margin-bottom: 20px;">
+            <p style="color: white;">Muhammad al-Xorazmiy nomidagi<br>Toshkent Axborot Texnologiyalari Universiteti</p>
+
+
+        </div>
+
+        <div style="flex: 2;">
+            <h4>Bog‘lanish</h4>
+            <ul style="list-style: none; padding: 0;">
+                <li>Manzil: Toshkent 100084, Amir Temur shox ko‘chasi 108 uy</li>
+                <li>Jamoat transportlari: 10, 17, 19, 24, 38, 51, 60, 67, 72, 93, 115, 140</li>
+                <li>Telefon: +998 71 238 64 89</li>
+                <li>Email: info@tuit.uz</li>
+                <li>Ish grafigi: Dushanba - Juma 8:30 - 18:00</li>
+                <li>Shanba Yakshanba dam olish kuni</li>
+            </ul>
+        </div>
+
+        <div style="flex: 1; text-align: right;">
+            <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2993.8841423466054!2d69.24142641541762!3d41.33882597926767!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38aef4d204a43d05%3A0x2f5f9e3454de3c51!2sMuhammad%20al-Xorazmiy%20nomidagi%20Toshkent%20Axborot%20Texnologiyalari%20Universiteti!5e0!3m2!1sen!2s!4v1692583272086!5m2!1sen!2s"
+                    width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+</footer>
+
+
+<script src="{% static 'js/plugins.js' %}"></script>
+<script>
+    $(window).on("load", function () {
+        $('body').addClass('loaded');
+    });
+</script>
+</body>
+</html>
